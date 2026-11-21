@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@theme {
+  /* TalentLens Design System — Premium Career Intelligence */
+  --color-ivory-50: #F8F8F4;
+  --color-ivory-100: #F2F2EC;
+  --color-ivory-200: #E8E8E0;
+
+  --color-forest-900: #174C3C;
+  --color-forest-800: #1A5C47;
+  --color-forest-700: #1E6E55;
+  --color-forest-600: #247A5F;
+  --color-forest-500: #2E9972;
+  --color-forest-400: #48B589;
+  --color-forest-300: #71CAA3;
+
+  --color-sage-50: #F0F5F1;
+  --color-sage-100: #E4EEE7;
+  --color-sage-200: #DCE9DF;
+  --color-sage-300: #C6DACB;
+  --color-sage-400: #A8C7B1;
+
+  --color-charcoal-900: #202723;
+  --color-charcoal-800: #2D3530;
+  --color-charcoal-700: #3A4440;
+  --color-charcoal-600: #4A5550;
+
+  --color-muted-500: #727A75;
+  --color-muted-400: #8E9690;
+  --color-muted-300: #AABABF;
+
+  --color-amber-600: #D97706;
+  --color-amber-500: #F59E0B;
+  --color-amber-100: #FEF3C7;
+
+  --color-red-600: #DC2626;
+  --color-red-100: #FEE2E2;
+
+  --font-sans: "Inter", "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Manrope", "Inter", system-ui, sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  --shadow-card: 0 1px 3px rgba(32, 39, 35, 0.06), 0 4px 16px rgba(23, 76, 60, 0.04);
+  --shadow-elevated: 0 4px 24px rgba(23, 76, 60, 0.08), 0 1px 4px rgba(32, 39, 35, 0.06);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--color-charcoal-900);
+  background-color: var(--color-ivory-50);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--color-ivory-50);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Scrollbar styling — subtle, editorial */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sage-300);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sage-400);
+}
+
+/* Focus ring — accessible, on-brand */
+:focus-visible {
+  outline: 2px solid var(--color-forest-500);
+  outline-offset: 2px;
+}
+
+/* Typography helpers */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--color-charcoal-900);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+p {
+  line-height: 1.65;
+  color: var(--color-charcoal-800);
+}
+
+/* Transition preset */
+.transition-smooth {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}

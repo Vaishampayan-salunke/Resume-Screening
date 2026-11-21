@@ -1,0 +1,3 @@
+# Keep oversized datasets local; GitHub rejects individual files over 100 MB.
+Datasets/LinkedIn Job Postings Dataset*/postings.csv
+Datasets/resume-dataset/Resume dataset.csv
