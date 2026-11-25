@@ -9,7 +9,7 @@ export default function AppLayout() {
       <Topbar />
       <main
         className="min-h-screen"
-        style={{ marginLeft: '224px', marginTop: '56px', padding: '28px 32px' }}
+        style={{ marginLeft: '240px', marginTop: '56px', padding: '28px 32px' }}
       >
         <Outlet />
       </main>

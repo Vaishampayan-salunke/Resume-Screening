@@ -1,21 +1,60 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import {
-  LayoutDashboard, FileText, Search, History,
-  ShieldCheck, BookOpen, Settings, HelpCircle, ChevronRight
+  LayoutDashboard, User, FileText, Compass, Briefcase, Bookmark,
+  Layers, BookOpen, GraduationCap, Mic, ShieldCheck, Info,
+  Settings, HelpCircle, ChevronRight, Sparkles
 } from 'lucide-react';
 
-const NAV = [
-  { label: 'Dashboard', to: '/', icon: LayoutDashboard },
-  { label: 'Analyze Resume', to: '/analyze', icon: Search },
-  { label: 'History', to: '/history', icon: History },
-  { label: 'Skill Explorer', to: '/skills', icon: BookOpen },
-  { label: 'Fairness Audit', to: '/fairness', icon: ShieldCheck },
-  { label: 'About & Model', to: '/about', icon: FileText },
-];
+interface NavItem {
+  label: string;
+  to: string;
+  icon: React.ComponentType<{ size?: number; style?: React.CSSProperties; className?: string }>;
+  badge?: string;
+}
 
-const BOTTOM_NAV = [
-  { label: 'Settings', to: '/settings', icon: Settings },
-  { label: 'Help Center', to: '/help', icon: HelpCircle },
+interface NavSection {
+  title: string;
+  items: NavItem[];
+}
+
+const SECTIONS: NavSection[] = [
+  {
+    title: 'OVERVIEW',
+    items: [
+      { label: 'Dashboard', to: '/dashboard', icon: LayoutDashboard },
+      { label: 'Career Profile', to: '/profile', icon: User },
+    ],
+  },
+  {
+    title: 'CAREER INTELLIGENCE',
+    items: [
+      { label: 'Resume Studio', to: '/analyze', icon: FileText },
+      { label: 'Career Discovery', to: '/careers', icon: Compass, badge: 'New' },
+      { label: 'Analysis History', to: '/history', icon: Layers },
+    ],
+  },
+  {
+    title: 'OPPORTUNITIES',
+    items: [
+      { label: 'Explore Jobs', to: '/jobs', icon: Briefcase },
+      { label: 'Application Tracker', to: '/applications', icon: Bookmark },
+    ],
+  },
+  {
+    title: 'GROWTH CENTER',
+    items: [
+      { label: 'Learning Roadmap', to: '/learning', icon: GraduationCap },
+      { label: 'AI Interview Studio', to: '/interview', icon: Mic, badge: 'AI' },
+      { label: 'Skill Taxonomy', to: '/skills', icon: BookOpen },
+    ],
+  },
+  {
+    title: 'TRUST & ETHICS',
+    items: [
+      { label: 'Fairness Audit', to: '/fairness', icon: ShieldCheck },
+      { label: 'About & Model', to: '/about', icon: Info },
+    ],
+  },
 ];
 
 export default function Sidebar() {
@@ -23,80 +62,115 @@ export default function Sidebar() {
 
   return (
     <aside
-      className="fixed left-0 top-0 h-screen w-56 flex flex-col"
-      style={{ background: '#fff', borderRight: '1px solid #E5E8E6', zIndex: 40 }}
+      className="fixed left-0 top-0 h-screen w-60 flex flex-col select-none"
+      style={{
+        background: '#FFFFFF',
+        borderRight: '1px solid #E5E8E6',
+        zIndex: 40,
+      }}
     >
-      {/* Logo */}
-      <div className="px-5 py-5 border-b" style={{ borderColor: '#E5E8E6' }}>
-        <div className="flex items-center gap-2.5">
+      {/* Brand Header */}
+      <div className="px-5 py-4 border-b flex items-center justify-between" style={{ borderColor: '#F0F5F1' }}>
+        <NavLink to="/dashboard" className="flex items-center gap-2.5 text-decoration-none">
           <div
-            className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white"
-            style={{ background: '#174C3C', fontFamily: 'Manrope, Inter, sans-serif' }}
+            className="w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold text-white shadow-sm"
+            style={{ background: '#155642', fontFamily: 'Manrope, sans-serif' }}
           >
             TL
           </div>
           <div>
-            <div className="text-sm font-bold" style={{ color: '#202723', letterSpacing: '-0.02em', fontFamily: 'Manrope, sans-serif' }}>
+            <div className="text-sm font-bold tracking-tight" style={{ color: '#202A26', fontFamily: 'Manrope, sans-serif' }}>
               TalentLens
             </div>
-            <div className="text-xs" style={{ color: '#727A75' }}>Career Intelligence</div>
+            <div className="text-[11px]" style={{ color: '#727A75' }}>
+              Career Intelligence
+            </div>
           </div>
-        </div>
+        </NavLink>
       </div>
 
-      {/* Main Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-        {NAV.map(({ label, to, icon: Icon }) => {
-          const isActive = to === '/' ? location.pathname === '/' : location.pathname.startsWith(to);
-          return (
-            <NavLink
-              key={to}
-              to={to}
-              className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all group"
-              style={{
-                color: isActive ? '#174C3C' : '#727A75',
-                background: isActive ? '#DCE9DF' : 'transparent',
-                fontWeight: isActive ? '600' : '400',
-              }}
+      {/* Navigation Sections */}
+      <nav className="flex-1 px-3 py-3 space-y-4 overflow-y-auto">
+        {SECTIONS.map(section => (
+          <div key={section.title}>
+            <div
+              className="px-3 pb-1.5 text-[10px] font-bold tracking-wider uppercase"
+              style={{ color: '#9BA5A0', letterSpacing: '0.06em' }}
             >
-              <Icon size={16} style={{ color: isActive ? '#174C3C' : '#9BA5A0', flexShrink: 0 }} />
-              <span className="flex-1">{label}</span>
-              {isActive && <ChevronRight size={12} style={{ color: '#174C3C', opacity: 0.5 }} />}
-            </NavLink>
-          );
-        })}
+              {section.title}
+            </div>
+            <div className="space-y-0.5">
+              {section.items.map(({ label, to, icon: Icon, badge }) => {
+                const isActive = to === '/dashboard'
+                  ? location.pathname === '/dashboard' || location.pathname === '/'
+                  : location.pathname.startsWith(to);
+
+                return (
+                  <NavLink
+                    key={to}
+                    to={to}
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-all group"
+                    style={{
+                      color: isActive ? '#155642' : '#4A5550',
+                      background: isActive ? '#DCE9DF' : 'transparent',
+                      fontWeight: isActive ? '600' : '500',
+                    }}
+                  >
+                    <Icon
+                      size={15}
+                      style={{
+                        color: isActive ? '#155642' : '#727A75',
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span className="flex-1 truncate">{label}</span>
+
+                    {badge && (
+                      <span
+                        className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
+                        style={{
+                          background: badge === 'AI' ? '#155642' : '#FEF3C7',
+                          color: badge === 'AI' ? '#FFFFFF' : '#92400E',
+                        }}
+                      >
+                        {badge}
+                      </span>
+                    )}
+
+                    {isActive && (
+                      <ChevronRight size={12} style={{ color: '#155642', opacity: 0.6 }} />
+                    )}
+                  </NavLink>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </nav>
 
-      {/* Bottom Nav */}
-      <div className="px-3 py-4 border-t space-y-0.5" style={{ borderColor: '#E5E8E6' }}>
-        {BOTTOM_NAV.map(({ label, to, icon: Icon }) => (
-          <NavLink
-            key={to}
-            to={to}
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all"
-            style={{ color: '#9BA5A0' }}
-          >
-            <Icon size={16} style={{ flexShrink: 0 }} />
-            <span>{label}</span>
-          </NavLink>
-        ))}
-
-        {/* User Chip */}
-        <div
-          className="mt-3 flex items-center gap-2.5 px-3 py-2.5 rounded-lg cursor-pointer"
-          style={{ background: '#F0F5F1' }}
+      {/* Bottom Profile Footer */}
+      <div className="p-3 border-t space-y-1.5" style={{ borderColor: '#F0F5F1' }}>
+        <NavLink
+          to="/profile"
+          className="flex items-center gap-2.5 px-3 py-2 rounded-xl transition-all hover:bg-gray-50 cursor-pointer"
+          style={{ background: '#F8F8F4' }}
         >
           <div
             className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold text-white flex-shrink-0"
-            style={{ background: '#174C3C' }}
+            style={{ background: '#155642' }}
           >
             A
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-xs font-semibold truncate" style={{ color: '#202723' }}>Alex Candidate</div>
-            <div className="text-xs truncate" style={{ color: '#9BA5A0' }}>Free Plan</div>
+            <div className="text-xs font-semibold truncate" style={{ color: '#202A26' }}>
+              Alex Candidate
+            </div>
+            <div className="text-[10px] truncate" style={{ color: '#727A75' }}>
+              B.Tech CS · Final Year
+            </div>
           </div>
-        </div>
+          <Sparkles size={13} style={{ color: '#155642' }} />
+        </NavLink>
       </div>
     </aside>
   );

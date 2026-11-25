@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
-import { FileText, Zap, TrendingUp, Clock, ArrowRight, Plus } from 'lucide-react';
+import {
+  FileText, Compass, Briefcase, GraduationCap, Mic,
+  ArrowRight, Plus, Sparkles, CheckCircle2, TrendingUp,
+  Clock, ShieldCheck
+} from 'lucide-react';
 import { Card, StatCard } from '../components/ui/Card';
-import { FitBadge } from '../components/ui/Badge';
-
-const MOCK_HISTORY = [
-  { id: '1', job_title: 'Machine Learning Engineer', company: 'DeepThought AI', overall_compatibility: 82, fit_category: 'Good Fit', created_at: '2026-11-19T14:30:00Z' },
-  { id: '2', job_title: 'Full Stack Python Developer', company: 'GreenCloud', overall_compatibility: 65, fit_category: 'Potential Fit', created_at: '2026-11-18T10:00:00Z' },
-  { id: '3', job_title: 'Data Scientist', company: 'Analytics Corp', overall_compatibility: 73, fit_category: 'Potential Fit', created_at: '2026-11-17T09:00:00Z' },
-];
+import { FitBadge, SkillBadge } from '../components/ui/Badge';
 
 export default function Dashboard() {
   const greeting = (() => {
@@ -16,203 +14,277 @@ export default function Dashboard() {
   })();
 
   return (
-    <div>
+    <div className="space-y-7 max-w-6xl">
       {/* Welcome Banner */}
-      <div className="mb-8 flex items-start justify-between">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1
-            className="text-2xl font-bold mb-1"
-            style={{ color: '#202723', letterSpacing: '-0.03em', fontFamily: 'Manrope, sans-serif' }}
-          >
-            {greeting}, Alex. 👋
-          </h1>
+          <div className="flex items-center gap-2 mb-1">
+            <h1
+              className="text-2xl font-bold tracking-tight"
+              style={{ color: '#202A26', fontFamily: 'Manrope, sans-serif' }}
+            >
+              {greeting}, Alex! 👋
+            </h1>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-800">
+              Career Profile Active
+            </span>
+          </div>
           <p style={{ color: '#727A75', fontSize: '14px' }}>
-            Let's move your career forward — your skill intelligence dashboard.
+            Your career command center · Grounded career intelligence, skill growth, and verified opportunities.
           </p>
         </div>
-        <Link
-          to="/analyze"
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90 shadow-sm"
-          style={{ background: '#174C3C' }}
-        >
-          <Plus size={15} />
-          New Analysis
-        </Link>
+
+        <div className="flex items-center gap-2.5">
+          <Link to="/analyze">
+            <button
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-white transition-opacity hover:opacity-90 shadow-sm"
+              style={{ background: '#155642' }}
+            >
+              <Plus size={14} /> New Resume Analysis
+            </button>
+          </Link>
+          <Link to="/interview">
+            <button
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold border transition-colors hover:bg-gray-100"
+              style={{ borderColor: '#E5E8E6', color: '#202A26', background: '#FFFFFF' }}
+            >
+              <Mic size={14} /> Practice Interview
+            </button>
+          </Link>
+        </div>
       </div>
 
-      {/* Stats Row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      {/* Dynamic "Your Next Best Move" Action Card */}
+      <Card
+        className="p-5 border-l-4"
+        style={{
+          background: 'linear-gradient(90deg, #F0F5F1 0%, #FFFFFF 100%)',
+          borderColor: '#155642',
+          borderLeftWidth: '5px'
+        }}
+      >
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white flex-shrink-0" style={{ background: '#155642' }}>
+              <Sparkles size={18} />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-green-900 uppercase tracking-wide">
+                Your Next Best Move
+              </div>
+              <h2 className="text-sm font-bold text-gray-900 mt-0.5">
+                Strengthen Docker containerization to unlock 3 High-Match Openings
+              </h2>
+              <p className="text-xs text-gray-600 mt-1 leading-relaxed">
+                Your ML & Python competencies are strong (89%). Completing Phase 6 of your Learning Roadmap will elevate your profile for Infosys and TCS vacancies.
+              </p>
+            </div>
+          </div>
+
+          <Link
+            to="/learning"
+            className="flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-lg text-white flex-shrink-0 self-start sm:self-center"
+            style={{ background: '#155642' }}
+          >
+            Open Roadmap <ArrowRight size={12} />
+          </Link>
+        </div>
+      </Card>
+
+      {/* Key Metric Gauges */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
-          label="Analyses Run"
-          value="12"
-          sub="This month"
-          icon={<FileText size={18} />}
-          trend={{ value: '3 more', positive: true }}
-        />
-        <StatCard
-          label="Average Match"
-          value="73%"
-          sub="Across all roles"
-          icon={<Zap size={18} />}
-          trend={{ value: '5%', positive: true }}
-        />
-        <StatCard
-          label="Skills Identified"
-          value="24"
-          sub="Unique competencies"
+          label="Career Readiness Index"
+          value="78%"
+          sub="For Machine Learning roles"
           icon={<TrendingUp size={18} />}
+          trend={{ value: '6% this month', positive: true }}
         />
         <StatCard
-          label="Skill Gaps Found"
-          value="8"
-          sub="Across all analyses"
+          label="Matched Opportunities"
+          value="14"
+          sub="Ready to explore"
+          icon={<Briefcase size={18} />}
+          trend={{ value: '4 new vacancies', positive: true }}
+        />
+        <StatCard
+          label="Verified Skills"
+          value="24"
+          sub="Grounded in evidence"
+          icon={<CheckCircle2 size={18} />}
+        />
+        <StatCard
+          label="Active Applications"
+          value="4"
+          sub="1 Interview scheduled"
           icon={<Clock size={18} />}
           color="#D97706"
         />
       </div>
 
-      {/* Main Content Grid */}
+      {/* Main Grid: 2 Columns */}
       <div className="grid lg:grid-cols-3 gap-6">
-        {/* Recent Analyses */}
-        <div className="lg:col-span-2">
-          <Card>
-            <div className="px-5 py-4 border-b flex items-center justify-between" style={{ borderColor: '#F0F5F1' }}>
+        {/* Left 2 Columns: Career Pathways & Matching Opportunities */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Top Recommended Career Pathways */}
+          <Card className="p-5">
+            <div className="flex items-center justify-between pb-3.5 border-b mb-4" style={{ borderColor: '#F0F5F1' }}>
               <div>
-                <h2 className="text-sm font-semibold" style={{ color: '#202723' }}>Recent Analyses</h2>
-                <p className="text-xs mt-0.5" style={{ color: '#9BA5A0' }}>Your latest resume–job compatibility checks</p>
+                <h2 className="text-sm font-bold text-gray-900">Recommended Career Pathways</h2>
+                <p className="text-[11px] text-gray-500">Based on your evidenced skills and project background</p>
               </div>
-              <Link to="/history" className="text-xs font-medium transition-colors" style={{ color: '#174C3C' }}>
-                View all <ArrowRight size={11} className="inline" />
+              <Link to="/careers" className="text-xs font-semibold text-green-900 hover:underline flex items-center gap-1">
+                Explore all paths <ArrowRight size={11} />
               </Link>
             </div>
-            <div className="divide-y" style={{ borderColor: '#F0F5F1' }}>
-              {MOCK_HISTORY.map(item => (
-                <Link
-                  key={item.id}
-                  to={`/results/${item.id}`}
-                  className="flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors group"
-                  style={{ textDecoration: 'none' }}
+
+            <div className="space-y-3">
+              {[
+                { title: 'Data Analyst', score: 89, tag: 'Strong Fit', salary: '₹6.5L - ₹12L', growth: '+23% YoY', skills: ['Python', 'SQL', 'Pandas'] },
+                { title: 'Full Stack Python Developer', score: 84, tag: 'Strong Fit', salary: '₹7L - ₹14L', growth: 'High startup demand', skills: ['Python', 'FastAPI', 'React'] },
+                { title: 'Machine Learning Engineer', score: 78, tag: 'Potential Fit', salary: '₹8.5L - ₹18L', growth: 'GenAI expansion', skills: ['PyTorch', 'ML', 'Scikit-Learn'] }
+              ].map(path => (
+                <div
+                  key={path.title}
+                  className="p-3.5 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-gray-50 transition-colors"
+                  style={{ borderColor: '#E5E8E6', background: '#FAFAF8' }}
                 >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div
-                      className="w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0"
-                      style={{ background: '#DCE9DF', color: '#174C3C' }}
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-gray-900">{path.title}</span>
+                      <FitBadge category={path.tag} />
+                    </div>
+                    <div className="text-[11px] text-gray-500 mt-1">
+                      {path.salary} · {path.growth}
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-1.5">
+                      {path.skills.map(s => <SkillBadge key={s} label={s} size="sm" variant="matched" />)}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3 self-end sm:self-center">
+                    <div className="text-right">
+                      <div className="text-base font-bold text-green-900" style={{ fontFamily: 'Manrope, sans-serif' }}>
+                        {path.score}%
+                      </div>
+                      <span className="text-[9px] text-gray-400">alignment</span>
+                    </div>
+                    <Link
+                      to="/careers"
+                      className="p-1.5 rounded-lg border hover:bg-gray-100 text-gray-600"
                     >
-                      {item.job_title.charAt(0)}
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-sm font-medium truncate" style={{ color: '#202723' }}>{item.job_title}</div>
-                      <div className="text-xs truncate" style={{ color: '#9BA5A0' }}>
-                        {item.company} · {new Date(item.created_at).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
-                      </div>
-                    </div>
+                      <ArrowRight size={13} />
+                    </Link>
                   </div>
-                  <div className="flex items-center gap-3 flex-shrink-0 ml-3">
-                    <div className="text-right hidden sm:block">
-                      <div
-                        className="text-base font-bold"
-                        style={{
-                          color: item.overall_compatibility >= 75 ? '#174C3C' : item.overall_compatibility >= 50 ? '#D97706' : '#DC2626',
-                          fontFamily: 'Manrope, sans-serif',
-                          letterSpacing: '-0.02em'
-                        }}
-                      >
-                        {item.overall_compatibility}%
-                      </div>
-                    </div>
-                    <FitBadge category={item.fit_category as 'Good Fit' | 'Potential Fit' | 'Low Fit'} />
-                    <ArrowRight size={14} style={{ color: '#C6DACB' }} className="group-hover:translate-x-0.5 transition-transform" />
-                  </div>
-                </Link>
+                </div>
               ))}
             </div>
           </Card>
 
-          {/* Quick Analysis CTA */}
-          <Card className="mt-4" style={{ background: 'linear-gradient(135deg, #174C3C 0%, #1E6E55 100%)', border: 'none' }}>
-            <div className="p-5 flex items-center justify-between">
+          {/* Matched Job Vacancies */}
+          <Card className="p-5">
+            <div className="flex items-center justify-between pb-3.5 border-b mb-4" style={{ borderColor: '#F0F5F1' }}>
               <div>
-                <h3 className="text-sm font-semibold text-white mb-1">Ready for your next analysis?</h3>
-                <p className="text-xs" style={{ color: '#A8C7B1' }}>
-                  Upload a resume and paste a job description to get your instant compatibility report.
-                </p>
+                <h2 className="text-sm font-bold text-gray-900">Latest Matching Openings</h2>
+                <p className="text-[11px] text-gray-500">Live opportunities aligned to your profile</p>
               </div>
-              <Link
-                to="/analyze"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold transition-all hover:opacity-90 flex-shrink-0 ml-4"
-                style={{ background: '#DCE9DF', color: '#174C3C' }}
-              >
-                Start <ArrowRight size={12} />
+              <Link to="/jobs" className="text-xs font-semibold text-green-900 hover:underline flex items-center gap-1">
+                View all jobs <ArrowRight size={11} />
               </Link>
+            </div>
+
+            <div className="space-y-3">
+              {[
+                { company: 'Infosys Applied AI', role: 'Junior ML Engineer', location: 'Bengaluru (Hybrid)', score: 91, salary: '₹8.5L - ₹12L' },
+                { company: 'Accenture Tech', role: 'Data Analyst Graduate', location: 'Hyderabad (Hybrid)', score: 86, salary: '₹6.5L - ₹9L' },
+                { company: 'Tata Consultancy Services', role: 'AI/ML Research Intern', location: 'Remote (India)', score: 82, salary: '₹35k/mo stipend' },
+              ].map(j => (
+                <div key={j.role} className="p-3.5 rounded-xl border flex items-center justify-between hover:bg-gray-50 transition-colors" style={{ borderColor: '#E5E8E6' }}>
+                  <div>
+                    <div className="text-xs font-bold text-gray-900">{j.role}</div>
+                    <div className="text-[11px] text-gray-500">{j.company} · {j.location} · {j.salary}</div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-bold text-green-900">{j.score}% match</span>
+                    <Link to="/jobs" className="text-xs font-semibold text-green-900 hover:underline">
+                      View
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
           </Card>
         </div>
 
-        {/* Right Panel */}
-        <div className="space-y-5">
-          {/* Top Skills */}
-          <Card>
-            <div className="px-5 py-4 border-b" style={{ borderColor: '#F0F5F1' }}>
-              <h3 className="text-sm font-semibold" style={{ color: '#202723' }}>Your Top Skills</h3>
-              <p className="text-xs mt-0.5" style={{ color: '#9BA5A0' }}>Identified across all resumes</p>
+        {/* Right Column: Skill Growth & Quick Navigation */}
+        <div className="space-y-6">
+          {/* Skill Proficiency & Evidence Gauge */}
+          <Card className="p-5">
+            <div className="pb-3 border-b mb-3" style={{ borderColor: '#F0F5F1' }}>
+              <h2 className="text-xs font-bold text-gray-900 uppercase tracking-wide">
+                Demonstrated Competencies
+              </h2>
+              <p className="text-[11px] text-gray-500">Grounded in project & work evidence</p>
             </div>
-            <div className="p-5 space-y-3">
+
+            <div className="space-y-2.5">
               {[
-                { name: 'Python', pct: 95, cat: 'Languages' },
-                { name: 'Machine Learning', pct: 88, cat: 'ML & AI' },
-                { name: 'SQL', pct: 80, cat: 'Data' },
-                { name: 'PyTorch', pct: 75, cat: 'ML & AI' },
-                { name: 'React', pct: 68, cat: 'Frontend' },
+                { name: 'Python', confidence: 'High', source: '2 Projects' },
+                { name: 'PyTorch', confidence: 'High', source: 'ML Capstone' },
+                { name: 'SQL', confidence: 'Medium', source: 'Coursework' },
+                { name: 'FastAPI', confidence: 'High', source: 'Backend API' },
+                { name: 'Docker', confidence: 'Low', source: 'Basic mention' },
               ].map(s => (
-                <div key={s.name}>
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-medium" style={{ color: '#3A4440' }}>{s.name}</span>
-                    <span className="text-xs" style={{ color: '#9BA5A0' }}>{s.cat}</span>
+                <div key={s.name} className="flex items-center justify-between p-2 rounded-lg bg-gray-50 border border-gray-100">
+                  <div>
+                    <div className="text-xs font-bold text-gray-800">{s.name}</div>
+                    <div className="text-[10px] text-gray-500">{s.source}</div>
                   </div>
-                  <div className="rounded-full h-1.5 overflow-hidden" style={{ background: '#F0F5F1' }}>
-                    <div
-                      className="h-full rounded-full"
-                      style={{ width: `${s.pct}%`, background: '#174C3C' }}
-                    />
-                  </div>
+                  <span
+                    className="text-[10px] font-bold px-2 py-0.5 rounded-full"
+                    style={{
+                      background: s.confidence === 'High' ? '#DCE9DF' : s.confidence === 'Medium' ? '#FEF3C7' : '#FEE2E2',
+                      color: s.confidence === 'High' ? '#155642' : s.confidence === 'Medium' ? '#92400E' : '#991B1B',
+                    }}
+                  >
+                    {s.confidence}
+                  </span>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-4 pt-3 border-t text-center">
+              <Link to="/profile" className="text-xs font-semibold text-green-900 hover:underline">
+                View Full Career Profile & Evidence ➔
+              </Link>
             </div>
           </Card>
 
-          {/* Top Missing Skills */}
-          <Card>
-            <div className="px-5 py-4 border-b" style={{ borderColor: '#F0F5F1' }}>
-              <h3 className="text-sm font-semibold" style={{ color: '#202723' }}>Priority Skill Gaps</h3>
-              <p className="text-xs mt-0.5" style={{ color: '#9BA5A0' }}>Most frequently missing across analyses</p>
+          {/* Quick Shortcuts to Features */}
+          <Card className="p-5">
+            <div className="pb-3 border-b mb-3" style={{ borderColor: '#F0F5F1' }}>
+              <h2 className="text-xs font-bold text-gray-900 uppercase tracking-wide">
+                Quick Actions
+              </h2>
             </div>
-            <div className="p-5 space-y-2.5">
-              {[
-                { name: 'Docker', priority: 1, cat: 'DevOps' },
-                { name: 'Kubernetes', priority: 1, cat: 'DevOps' },
-                { name: 'Deep Learning', priority: 2, cat: 'ML & AI' },
-                { name: 'NLP / Transformers', priority: 2, cat: 'ML & AI' },
-              ].map(g => (
-                <div
-                  key={g.name}
-                  className="flex items-center justify-between p-2.5 rounded-lg"
-                  style={{ background: g.priority === 1 ? '#FEF3C7' : '#F8F8F4', border: `1px solid ${g.priority === 1 ? '#FDE68A' : '#E5E8E6'}` }}
-                >
-                  <span className="text-xs font-medium" style={{ color: '#202723' }}>{g.name}</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs" style={{ color: '#9BA5A0' }}>{g.cat}</span>
-                    <span
-                      className="text-xs font-semibold px-1.5 py-0.5 rounded-full"
-                      style={{
-                        background: g.priority === 1 ? '#FDE68A' : '#E5E8E6',
-                        color: g.priority === 1 ? '#92400E' : '#727A75'
-                      }}
-                    >
-                      P{g.priority}
-                    </span>
-                  </div>
-                </div>
-              ))}
+            <div className="space-y-2">
+              <Link to="/analyze" className="flex items-center gap-2 p-2.5 rounded-lg hover:bg-gray-50 transition-colors text-xs font-medium text-gray-700">
+                <FileText size={14} className="text-green-800" />
+                <span>Upload & Parse New Resume</span>
+              </Link>
+              <Link to="/careers" className="flex items-center gap-2 p-2.5 rounded-lg hover:bg-gray-50 transition-colors text-xs font-medium text-gray-700">
+                <Compass size={14} className="text-green-800" />
+                <span>Simulate Learning Impact</span>
+              </Link>
+              <Link to="/interview" className="flex items-center gap-2 p-2.5 rounded-lg hover:bg-gray-50 transition-colors text-xs font-medium text-gray-700">
+                <Mic size={14} className="text-green-800" />
+                <span>Practice Technical Mock Interview</span>
+              </Link>
+              <Link to="/fairness" className="flex items-center gap-2 p-2.5 rounded-lg hover:bg-gray-50 transition-colors text-xs font-medium text-gray-700">
+                <ShieldCheck size={14} className="text-green-800" />
+                <span>Run Demographic Fairness Audit</span>
+              </Link>
             </div>
           </Card>
         </div>
